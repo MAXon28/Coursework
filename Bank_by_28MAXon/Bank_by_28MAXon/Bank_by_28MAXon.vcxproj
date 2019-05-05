@@ -152,24 +152,34 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Account.h" />
+    <ClInclude Include="Console.h" />
+    <ClInclude Include="Logic.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="registration.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Account.cpp" />
     <ClCompile Include="Bank_by_28MAXon.cpp" />
+    <ClCompile Include="Console.cpp" />
+    <ClCompile Include="Logic.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="registration.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Bank_by_28MAXon.rc" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Accounts.txt" />
+    <Text Include="Bezuglyash.txt" />
+    <Text Include="Check.txt" />
+    <Text Include="Nastya28.txt" />
+    <Text Include="Oksi.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,8 +1,8 @@
-//{{NO_DEPENDENCIES}}
+п»ї//{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
 // Used by Bank_by_28MAXon.rc
 
-// Следующие стандартные значения для новых объектов
+// РЎР»РµРґСѓСЋС‰РёРµ СЃС‚Р°РЅРґР°СЂС‚РЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ РґР»СЏ РЅРѕРІС‹С… РѕР±СЉРµРєС‚РѕРІ
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS

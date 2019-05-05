@@ -1,30 +1,27 @@
-#pragma once
+﻿#pragma once
+#include <iostream>
+#include <fstream>
 #include <string>
+#include "Account.h"
+#include <Windows.h>
 using namespace std;
-class account
+
+class Account
 {
 protected:
 	string login;
 	string pin;
+	string expansion;
+	string secret_answer;
 public:
-	account();
-	~account();
-	void input();
-	void forgot_password();
-		
-};
+	Account();
+	~Account();
 
-class registration : public account
-{
-private:
-	string name;
-	string surname;
-	int age;
-	int number_of_phone;
-	string email_adress;
-	string country;
-	string city;
-	int number_of_card;
-public:
-	void registr();
+	friend istream& operator>>(istream& in, Account& Account);
+	bool input();
+	void forgot_password();
+	int account_in_bank(int page);
+	void settings(int selection);
+	void operation(int selection);
+	friend ostream& operator<<(ostream& out, Account& Account);	
 };
