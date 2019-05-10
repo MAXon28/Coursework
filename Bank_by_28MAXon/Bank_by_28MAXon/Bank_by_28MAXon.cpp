@@ -58,11 +58,10 @@ int main()
 			int choice_page = 1;
 			while (start != false)
 			{
-				work_with_console.interface_account(choice_page);
+				work_with_console.interface_menu(choice_page);
 				work_with_console.interface_backgroud_topic_partially(choise_topic);
 				choice_page = men.account_in_bank(choice_page);
 				cout << endl << endl;
-				system("pause");
 			}
 			break;
 		}
@@ -78,8 +77,8 @@ int main()
 				confirm = registration.confirmation();
 			} while (confirm != true);
 			system("pause");
+			break;
 		}
 	}
 	system("pause");
-
 }

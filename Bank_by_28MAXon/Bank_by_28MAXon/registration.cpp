@@ -97,7 +97,6 @@ istream& operator>>(istream& in, Registration& registr)
 		if (!file.is_open())
 		{
 			check = true;
-			file.close();
 			interface_page.set_cursor_local(66, 27);
 			cout << "                            ";
 		}

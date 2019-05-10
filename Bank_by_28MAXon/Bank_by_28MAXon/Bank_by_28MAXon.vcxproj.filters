@@ -63,16 +63,13 @@
     <Text Include="Accounts.txt">
       <Filter>Файлы ресурсов</Filter>
     </Text>
-    <Text Include="Bezuglyash.txt">
-      <Filter>Файлы ресурсов</Filter>
-    </Text>
-    <Text Include="Nastya28.txt">
-      <Filter>Файлы ресурсов</Filter>
-    </Text>
     <Text Include="Check.txt">
       <Filter>Файлы ресурсов</Filter>
     </Text>
-    <Text Include="Oksi.txt">
+    <Text Include="Bezuglyash.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
+    <Text Include="BezuglyashHistoryOperation.txt">
       <Filter>Файлы ресурсов</Filter>
     </Text>
   </ItemGroup>

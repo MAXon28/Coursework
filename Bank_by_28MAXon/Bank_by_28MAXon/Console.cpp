@@ -159,7 +159,7 @@ void Console::interface_confirm()
 	set_cursor_local(3, 30);
 	cout << "Пароль";
 	set_cursor_local(3, 33);
-	cout << "Имя Вашей мамы";
+	cout << "Ваш любимый фильм";
 
 	set_cursor_local(1, 36);
 	cout << "Подтвердите регистрацию (нажмите цифру, соответствующую Вашему варианту ниже):";
@@ -189,7 +189,7 @@ void Console::interface_confirm()
 	cout << "Ваш выбор:";
 }
 
-void Console::interface_account(int choice_page)
+void Console::interface_menu(int choice_page)
 {
 	system("cls");
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -255,7 +255,7 @@ void Console::interface_account(int choice_page)
 	}
 }
 
-void Console::interface_menu_main_page()
+void Console::interface_main_page()
 {
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	set_cursor_local(34, 5);
@@ -263,7 +263,7 @@ void Console::interface_menu_main_page()
 	set_cursor_local(0, 7);
 	cout << "_________________________________________________________________________________________________________";
 	set_cursor_local(37, 10);
-	cout << "Денек на карте:";
+	cout << "Денег на карте:";
 	set_cursor_local(0, 13);
 	cout << "_________________________________________________________________________________________________________";
 
@@ -301,7 +301,7 @@ void Console::interface_menu_main_page()
 	cout << "Номер кнопки в меню:";
 }
 
-void Console::interface_operation()
+void Console::interface_operations_page()
 {
 	set_cursor_local(43, 4);
 	cout << "БАНКОВСКИЕ ОПЕРАЦИИ";
@@ -336,7 +336,7 @@ void Console::interface_operation()
 	set_cursor_local(40, 28);
 	cout << "|Выберите действие|";
 	set_cursor_local(1, 28);
-	cout << "1 - настройки";
+	cout << "1 - операции банка";
 	set_cursor_local(90, 28);
 	cout << "2 - меню";
 	set_cursor_local(40, 29);
@@ -344,6 +344,40 @@ void Console::interface_operation()
 	set_cursor_local(1, 29);
 	cout << "Номер операции:";
 	set_cursor_local(81, 29);
+	cout << "Номер кнопки в меню:";
+}
+
+void Console::interface_history_page()
+{
+	set_cursor_local(34, 4);
+	cout << "ИСТОРИИ БАНКОВСКИХ ОПЕРАЦИЙ";
+	for (int i = 0; i < 36; i++)
+	{
+		set_cursor_local(0, 6 + i);
+		cout << "|";
+		set_cursor_local(55, 6 + i);
+		cout << "|";
+	}
+	int y = 0;
+	for (int i = 0; i < 7; i++)
+	{
+		set_cursor_local(1, 5 + y);
+		cout << "______________________________________________________";
+		y = y + 6;
+	}
+	set_cursor_local(57, 6);
+	cout << "1 - поиск банковских операций в истории";
+	set_cursor_local(57, 7);
+	cout << "2 - работа с меню";
+	set_cursor_local(57, 8);
+	cout << "Ваш выбор:";
+	set_cursor_local(57, 12);
+	cout << "Обычный поиск (номер банковской операции)";
+	set_cursor_local(57, 13);
+	cout << "Расширенный поиск (введите 0)";
+	set_cursor_local(57, 14);
+	cout << "Поиск:";
+	set_cursor_local(57, 41);
 	cout << "Номер кнопки в меню:";
 }
 
@@ -396,9 +430,49 @@ void Console::interface_myData()
 	set_cursor_local(3, 30);
 	cout << "10 - номер карты";
 	set_cursor_local(3, 33);
-	cout << "11 - имя Вашей мамы";
+	cout << "11 - любимый фильм";
 	set_cursor_local(1, 36);
 	cout << "Внести изменения? (Если да, то нажмите цифру, которая соответствует выбранному Вами полю, в противном случае нажмите 0)";
+}
+
+void Console::interface_operation(int operation)
+{
+	switch (operation)
+	{
+	case 1:
+	{
+		set_cursor_local(34, 0);
+		cout << "ПОПОЛНЕНИЕ БАНКОВСКОЙ КАРТЫ";
+		set_cursor_local(1, 1);
+		cout << "Для уверенности, что Вас не взломали, ответьте на вопрос (Ваш любимый фильм?):";
+
+		for (int i = 0; i < 9; i++)
+		{
+			set_cursor_local(1, 3 + i);
+			cout << "|";
+			set_cursor_local(37, 3 + i);
+			cout << "|";
+			set_cursor_local(53, 3 + i);
+			cout << "|";
+		}
+		int y = 0;
+		for (int i = 0; i < 4; i++)
+		{
+			set_cursor_local(2, 2 + y);
+			cout << "___________________________________";
+			set_cursor_local(38, 2 + y);
+			cout << "_______________";
+			y = y + 3;
+		}
+		set_cursor_local(4, 4);
+		cout << "Баланс на карте в данный момент";
+		set_cursor_local(4, 7);
+		cout << "Сумма к зачислению";
+		set_cursor_local(4, 10);
+		cout << "Баланс на карте после зачисления";
+		break;
+	}
+	}
 }
 
 void Console::interface_backgroud_topic_partially(int choise)

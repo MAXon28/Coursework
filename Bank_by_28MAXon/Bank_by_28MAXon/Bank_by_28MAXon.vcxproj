@@ -177,9 +177,8 @@
   <ItemGroup>
     <Text Include="Accounts.txt" />
     <Text Include="Bezuglyash.txt" />
+    <Text Include="BezuglyashHistoryOperation.txt" />
     <Text Include="Check.txt" />
-    <Text Include="Nastya28.txt" />
-    <Text Include="Oksi.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

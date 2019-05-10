@@ -9,11 +9,11 @@ private:
 	string name;
 	string surname;
 	int age;
-	unsigned long long int number_of_phone;
+	unsigned long int number_of_phone;
 	string email_adress;
 	string country;
 	string city;
-	unsigned long long int number_of_card;
+	unsigned long int number_of_card;
 public:
 	Registration();
 	~Registration();
