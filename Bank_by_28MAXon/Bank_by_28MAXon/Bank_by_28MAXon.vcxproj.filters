@@ -72,5 +72,8 @@
     <Text Include="BezuglyashHistoryOperation.txt">
       <Filter>Файлы ресурсов</Filter>
     </Text>
+    <Text Include="CheckHistoryOperation.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
   </ItemGroup>
 </Project>

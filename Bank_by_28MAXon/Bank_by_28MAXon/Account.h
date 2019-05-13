@@ -4,9 +4,6 @@
 #include <string>
 #include <Windows.h>
 #include <vector>
-#include <time.h>
-#include "conio.h"
-#include "stdio.h"
 #include "Console.h"
 #include "Logic.h"
 using namespace std;
@@ -16,9 +13,9 @@ class Account
 protected:
 	string login;
 	string pin;
-	string expansion;
+	const string expansion = ".txt";
 	string secret_answer;
-	string history_operation;
+	const string history_operation = "HistoryOperation";
 public:
 	Account();
 	~Account();

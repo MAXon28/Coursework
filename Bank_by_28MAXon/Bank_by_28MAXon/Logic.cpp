@@ -1,13 +1,11 @@
 #include "pch.h"
 #include "Logic.h"
 
-Logic::Logic()
-{
-}
 
-
-Logic::~Logic()
+Logic::Logic(float percent, int count_days)
 {
+	I = percent;
+	t = count_days;
 }
 
 istream& operator>>(istream& in, Logic& logic)
@@ -50,7 +48,75 @@ unsigned long int Logic::operations(int number_of_operation, unsigned long int n
 		return result;
 		break;
 	}
+	case 2:
+	{
+		
+		break;
 	}
+	case 3:
+	{
+		
+		break;
+	}
+	case 4:
+	{
+		
+		break;
+	}
+	case 5:
+	{
+		if (confirm == true)
+		{
+			ifstream file_read(name_of_file + ".txt");
+			string file_Data[11];
+			for (int i = 0; i < 11; i++)
+			{
+				file_read >> file_Data[i];
+			}
+			file_read.close();
+			ofstream file_write(name_of_file + ".txt");
+			for (int i = 0; i < 12; i++)
+			{
+				if (i < 11)
+				{
+					file_write << file_Data[i] << endl;
+				}
+				else
+				{
+					file_write << now_cash;
+				}
+			}
+			file_write.close();
+		}
+		else
+		{
+			result = 0;
+			result = now_cash - new_cash;
+		}
+		return result;
+		break;
+	}
+	case 6:
+	{
+		break;
+	}
+	case 7:
+	{
+		break;
+	}
+	}
+}
+
+unsigned long int Logic::amount_of_income()
+{
+	Sp = (new_cash * I * t) / (K * 100);
+	return Sp;
+}
+
+unsigned long int Logic::amount_all_return()
+{
+	S = new_cash + Sp;
+	return S;
 }
 
 vector<string> Logic::normal_search(vector <string>& search_history, string word)
@@ -64,119 +130,116 @@ vector<string> Logic::normal_search(vector <string>& search_history, string word
 	{
 		while (search_history[i] != "новая операция")
 		{
-			i++;
 			if (search_history[i + 1] == "новая операция")
 			{
 				if (search_history[i] == word)
 				{
-					i++;
-					if (i == search_history.size())
-					{
-						searching = true;
-						break;
-					}
-					i++;
+					searching = true;
 				}
-				else
+			}
+			i++;
+		}
+		if (searching == true)
+		{
+			i++;
+			dot = i;
+			searching = false;
+		}
+		else
+		{
+			int j = dot;
+			int count_delete = 0;
+			while (search_history[j] != "новая операция")
+			{
+				auto iterator = search_history.cbegin();
+				search_history.erase(iterator + j);
+				count_string--;
+				search_history.resize(count_string);
+				if (count_string == 0)
 				{
-					int j = dot;
-					auto iterator = search_history.cbegin();
-					j++;
-					while (search_history[j] != "новая операция")
-					{
-						search_history.erase(iterator + j);
-						j++;
-						count_string--;
-						search_history.resize(count_string);
-						if (count_string == 0)
-						{
-							break;
-						}
-					}
-					search_history.erase(iterator + j);
-					count_string--;
-					searching = false;
+					break;
 				}
-
+				count_delete++;
 			}
-			if (searching == true)
-			{
-				dot = i;
-			}
-			if (i == search_history.size())
-			{
-				break;
-			}
+			auto iterator = search_history.cbegin();
+			search_history.erase(iterator + j);
+			count_delete++;
+			count_string--;
+			i = i - count_delete + 1;
+		}
+		if (i == search_history.size())
+		{
+			break;
 		}
 	} while (i != search_history.size());
 	return search_history;
 }
 
-vector <string> Logic::advanced_search(vector <string>& advanced_search_history, string name_operation, string cash, string date)
+vector <string> Logic::advanced_search(vector <string>& advanced_search_history, string name_operation, string cash, string day)
 {
 	int count_string;
 	count_string = advanced_search_history.size();
 	int i = 0;
-	int dot = 0;
+	int dot = 0; // сюда буду подавать элемент, на котором закончились данные об одной операции
 	bool searching = false;
 	do
 	{
 		while (advanced_search_history[i] != "новая операция")
 		{
-			i++;
 			if (advanced_search_history[i + 1] == "новая операция")
 			{
 				if (advanced_search_history[i] == name_operation)
 				{
 					if (advanced_search_history[i - 3] == cash)
 					{
-						if (advanced_search_history[i - 2] == date)
+						if (advanced_search_history[i - 2] == day)
 						{
 							searching = true;
-							i++;
 						}
 						else
 						{
 							searching = false;
-							break;
 						}
 					}
 					else
 					{
 						searching = false;
-						break;
 					}
 				}
 				else
 				{
 					searching = false;
-					break;
 				}
 			}
+			i++;
 		}
 		if (searching == false)
 		{
 			int j = dot;
-			auto iterator = advanced_search_history.cbegin();
-			j++;
+			int count_delete = 0;
 			while (advanced_search_history[j] != "новая операция")
 			{
+				auto iterator = advanced_search_history.cbegin();
 				advanced_search_history.erase(iterator + j);
 				count_string--;
 				advanced_search_history.resize(count_string);
+				count_delete++;
 				if (count_string == 0)
 				{
 					break;
 				}
 			}
+			auto iterator = advanced_search_history.cbegin();
+			count_delete++;
 			advanced_search_history.erase(iterator + j);
 			count_string--;
-			i = i + 2;
+			advanced_search_history.resize(count_string);
+			i = i - count_delete + 1;
 		}
 		if (searching == true)
 		{
-			dot = i;
 			i++;
+			dot = i;
 		}
 	} while (i < advanced_search_history.size());
 	return advanced_search_history;
@@ -228,6 +291,57 @@ string Logic::number_operation_to_name_operation(int number_operation)
 	}
 	}
 	return "0";
+}
+
+string Logic::number_day_to_name_day(string number_day)
+{
+	int number;
+	number = stoi(number_day);
+	switch (number)
+	{
+	case 1:
+	{
+		return "Понедельник";
+		break;
+	}
+	case 2:
+	{
+		return "Вторник";
+		break;
+	}
+	case 3:
+	{
+		return "Среда";
+		break;
+	}
+	case 4:
+	{
+		return "Четверг";
+		break;
+	}
+	case 5:
+	{
+		return "Пятница";
+		break;
+	}
+	case 6:
+	{
+		return "Суббота";
+		break;
+	}
+	case 7:
+	{
+		return "Воскресенье";
+		break;
+	}
+	}
+}
+
+Logic& Logic::operator=(const Logic log)
+{
+	new_cash = log.new_cash;
+	result = log.result;
+	return *this;
 }
 
 ostream& operator<<(ostream& out, Logic& logic)

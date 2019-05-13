@@ -23,9 +23,9 @@ int main()
 	file_read >> choise_topic;
 	work_with_console.interface_backgroud_topic(choise_topic);
 
-	// Выбор фоновой темы
+	/** Выбор фоновой темы
 	cin >> choise_topic;
-	work_with_console.interface_backgroud_topic(choise_topic);
+	work_with_console.interface_backgroud_topic(choise_topic);*/
 
 	// Сохранение выбранного фона
 	ofstream file_write("Accounts.txt", ios_base::out);
@@ -56,12 +56,11 @@ int main()
 				}
 			} while (start != true);
 			int choice_page = 1;
-			while (start != false)
+			while (choice_page != 4)
 			{
 				work_with_console.interface_menu(choice_page);
 				work_with_console.interface_backgroud_topic_partially(choise_topic);
 				choice_page = men.account_in_bank(choice_page);
-				cout << endl << endl;
 			}
 			break;
 		}
@@ -80,5 +79,7 @@ int main()
 			break;
 		}
 	}
+	system("cls");
+	cout << "Выход из приложения!" << endl;
 	system("pause");
 }

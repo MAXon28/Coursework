@@ -5,9 +5,7 @@ Account::Account()
 {
 	pin = "Нет данных";
 	login = "Нет данных";
-	expansion = ".txt";
 	secret_answer = "Нет данных";
-	history_operation = "HistoryOperation";
 }
 
 Account::~Account()
@@ -127,6 +125,7 @@ int Account::account_in_bank(int page)
 		case 3:
 		{
 			// Страничка с историями банковских операций
+			Logic logic_search;
 			work_interface.interface_history_page();
 			vector <string> history_bank; // сюда буду закидывать все данные из файла, а потом сортировать в случае надобности
 			ifstream file_history(login + history_operation + expansion);
@@ -151,12 +150,28 @@ int Account::account_in_bank(int page)
 				int i = 0; // Для курсора
 				while (history_bank[count_operation] != "новая операция")
 				{
-					work_interface.set_cursor_local(10, 7 + j + k);
-					cout << history_bank[count_operation];
-					if (i == 3)
+					if (i == 2)
 					{
+						work_interface.set_cursor_local(10, 7 + j + k);
+						cout << logic_search.number_day_to_name_day(history_bank[count_operation]);
+					}
+					else if (i == 3)
+					{
+						work_interface.set_cursor_local(10, 7 + j + k);
+						cout << history_bank[count_operation];
 						work_interface.set_cursor_local(19, 7 + j + k);
 						cout << "RUB";
+					}
+					else if (i >= 4)
+					{
+						history_bank[count_operation].pop_back();
+						i--;
+						j--;
+					}
+					else
+					{
+						work_interface.set_cursor_local(10, 7 + j + k);
+						cout << history_bank[count_operation];
 					}
 					j++;
 					count_operation--;
@@ -176,8 +191,7 @@ int Account::account_in_bank(int page)
 				work_interface.set_cursor_local(68, 8);
 				cin >> choise;
 				if (choise == 1)
-				{
-					Logic logic_search;
+				{					
 					int number_operation;
 					work_interface.set_cursor_local(64, 14);
 					cin >> number_operation;
@@ -214,12 +228,28 @@ int Account::account_in_bank(int page)
 							int i = 0;
 							while (history_bank[count_string] != "новая операция")
 							{
-								work_interface.set_cursor_local(10, 7 + j + k);
-								cout << history_bank[count_string];
-								if (i == 3)
+								if (i == 2)
 								{
+									work_interface.set_cursor_local(10, 7 + j + k);
+									cout << logic_search.number_day_to_name_day(history_bank[count_string]);
+								}
+								else if (i == 3)
+								{
+									work_interface.set_cursor_local(10, 7 + j + k);
+									cout << history_bank[count_string];
 									work_interface.set_cursor_local(19, 7 + j + k);
 									cout << "RUB";
+								}
+								else if (i >= 4)
+								{
+									history_bank[count_string].pop_back();
+									i--;
+									j--;
+								}
+								else
+								{
+									work_interface.set_cursor_local(10, 7 + j + k);
+									cout << history_bank[count_string];
 								}
 								j++;
 								count_string--;
@@ -233,6 +263,7 @@ int Account::account_in_bank(int page)
 						} while (count_string >= 0);
 					}
 					check = true;
+					work_interface.set_cursor_local(1, 43);
 					system("pause");
 					return 3;
 				}
@@ -249,6 +280,11 @@ int Account::account_in_bank(int page)
 					check = false;
 				}
 			} while (check == false);
+			break;
+		}
+		case 4:
+		{
+			return 0;
 			break;
 		}
 	}
@@ -346,15 +382,17 @@ void Account::operation(int selection)
 {
 	system("cls");
 	Console interface_operation;
+	Logic logic_refill_card;
+	unsigned long int cash, new_cash;
+	string favourite_film, checking;
+	string confirmation;
 	switch (selection)
 	{
 	case 1:
 	{
 		interface_operation.interface_operation(1);
-		string favourite_film;
 		interface_operation.set_cursor_local(80, 1);
 		cin >> favourite_film;
-		string checking;
 		ifstream file_film(login + expansion);
 		for (int i = 0; i < 11; i++)
 		{
@@ -363,21 +401,17 @@ void Account::operation(int selection)
 			{
 				if (checking == favourite_film)
 				{
-					unsigned long int cash;
 					file_film >> cash;
 					file_film.close();
 					interface_operation.set_cursor_local(41, 4);
 					cout << cash;
-					Logic logic_refill_card;
 					interface_operation.set_cursor_local(41, 7);
 					cin >> logic_refill_card;
-					unsigned long int new_cash;
 					new_cash = logic_refill_card.operations(1, cash, false, login);
 					interface_operation.set_cursor_local(41, 10);
 					cout << new_cash;
 					interface_operation.set_cursor_local(1, 13);
 					cout << "Подтверждаете операцию? ";
-					string confirmation;
 					bool print;
 					do
 					{
@@ -387,14 +421,25 @@ void Account::operation(int selection)
 							logic_refill_card.operations(1, cash, true, login);
 							system("cls");
 
-							SYSTEMTIME st;
-							GetLocalTime(&st);
-							ofstream file_history(login + history_operation + expansion, ios_base::app);
-							file_history << logic_refill_card << endl << st.wDayOfWeek << endl  << st.wDay << " " << st.wMonth << " " << st.wYear << endl  << "ПОПОЛНЕНИЕ БАНКОВСКОЙ КАРТЫ" << endl << "новая операция";
+							SYSTEMTIME stime;
+							GetLocalTime(&stime);
+							ifstream file_history(login + history_operation + expansion);
+							if (!file_history.eof())
+							{
+								file_history.close();
+								ofstream file_history(login + history_operation + expansion, ios_base::app);
+								file_history << endl << logic_refill_card << endl << stime.wDayOfWeek << endl << stime.wDay << " " << stime.wMonth << " " << stime.wYear << endl << "ПОПОЛНЕНИЕ БАНКОВСКОЙ КАРТЫ" << endl << "новая операция";
+							}
+							else
+							{
+								ofstream file_history(login + history_operation + expansion, ios_base::app);
+								file_history << logic_refill_card << endl << stime.wDayOfWeek << endl << stime.wDay << " " << stime.wMonth << " " << stime.wYear << endl << "ПОПОЛНЕНИЕ БАНКОВСКОЙ КАРТЫ" << endl << "новая операция";
+							}
 							file_history.close();
 
 							interface_operation.set_cursor_local(34, 15);
-							cout << "ЗАЧИСЛЕНО " << logic_refill_card << " RUB НА ВАШУ КАРТУ!";
+							cout << "ЗАЧИСЛЕНО " << logic_refill_card << " RUB НА ВАШУ КАРТУ!" << endl;;
+							system("pause");
 							print = true;
 						}
 						else if (confirmation == "Нет")
@@ -415,6 +460,7 @@ void Account::operation(int selection)
 				}
 			}
 		}
+		file_film.close();
 	}
 	case 2:
 	{
@@ -430,6 +476,125 @@ void Account::operation(int selection)
 	}
 	case 5:
 	{
+		interface_operation.interface_operation(5);
+		unsigned long int all_return;
+		interface_operation.set_cursor_local(80, 1);
+		cin >> favourite_film;
+		ifstream file_film(login + expansion);
+		for (int i = 0; i < 11; i++)
+		{
+			file_film >> checking;
+			if (i == 10)
+			{
+				if (checking == favourite_film)
+				{
+					interface_operation.set_cursor_local(1, 38);
+					cout << "Выберите номер вклада: ";
+					string number_of_deposit;
+					cin >> number_of_deposit;
+					interface_operation.interface_local_operation();
+					file_film >> cash;
+					interface_operation.set_cursor_local(47, 3);
+					cout << cash;
+					if (number_of_deposit == "1")
+					{
+						Logic logic_deposit(30, 1095);
+						interface_operation.set_cursor_local(47, 6);
+						cin >> logic_deposit;
+						logic_refill_card = logic_deposit;
+						new_cash = logic_deposit.operations(5, cash, false, login);
+						interface_operation.set_cursor_local(47, 9);
+						cout << new_cash;
+						unsigned long int percent_cash = logic_deposit.amount_of_income();
+						interface_operation.set_cursor_local(47, 12);
+						cout << percent_cash;
+						all_return = logic_deposit.amount_all_return();
+						interface_operation.set_cursor_local(47, 15);
+						cout << all_return;
+					}
+					if (number_of_deposit == "2")
+					{
+						Logic logic_deposit(10, 182);
+						interface_operation.set_cursor_local(47, 6);
+						cin >> logic_deposit;
+						logic_refill_card = logic_deposit;
+						new_cash = logic_deposit.operations(5, cash, false, login);
+						interface_operation.set_cursor_local(47, 9);
+						cout << new_cash;
+						unsigned long int percent_cash = logic_deposit.amount_of_income();
+						interface_operation.set_cursor_local(47, 12);
+						cout << percent_cash;
+						all_return = logic_deposit.amount_all_return();
+						interface_operation.set_cursor_local(47, 15);
+						cout << all_return;
+					}
+					if (number_of_deposit == "3")
+					{
+						Logic logic_deposit(5, 365);
+						interface_operation.set_cursor_local(47, 6);
+						cin >> logic_deposit;
+						logic_refill_card = logic_deposit;
+						new_cash = logic_deposit.operations(5, cash, false, login);
+						interface_operation.set_cursor_local(47, 9);
+						cout << new_cash;
+						unsigned long int percent_cash = logic_deposit.amount_of_income();
+						interface_operation.set_cursor_local(47, 12);
+						cout << percent_cash;
+						all_return = logic_deposit.amount_all_return();
+						interface_operation.set_cursor_local(47, 15);
+						cout << all_return;
+					}
+				}
+				else
+				{
+					system("cls");
+					interface_operation.set_cursor_local(34, 15);
+					cout << "НЕПРАВИЛЬНЫЙ ОТВЕТ НА ВОПРОС!";
+					interface_operation.set_cursor_local(4, 16);
+					cout << "В целях безопасности банк не может провести операцию, пока вы не дадите правильный ответ на вопрос!";
+					break;
+				}
+			}
+		}
+		file_film.close();
+		interface_operation.set_cursor_local(1, 19);
+		cout << "Подтверждаете операцию? ";
+		bool print;
+		do
+		{
+			cin >> confirmation;
+			if (confirmation == "Да")
+			{
+				logic_refill_card.operations(5, new_cash, true, login);
+				system("cls");
+
+				SYSTEMTIME stime_deposit;
+				GetLocalTime(&stime_deposit);
+				ifstream file_history(login + history_operation + expansion);
+				if (!file_history.eof())
+				{
+					file_history.close();
+					ofstream file_history(login + history_operation + expansion, ios_base::app);
+					file_history << endl << all_return << endl << logic_refill_card << endl << stime_deposit.wDayOfWeek << endl << stime_deposit.wDay << " " << stime_deposit.wMonth << " " << stime_deposit.wYear << endl << "ОТКРЫТИЕ ВКЛАДА" << endl << "новая операция";
+				}
+				else
+				{
+					ofstream file_history(login + history_operation + expansion, ios_base::app);
+					file_history << all_return << endl << logic_refill_card << endl << stime_deposit.wDayOfWeek << endl << stime_deposit.wDay << " " << stime_deposit.wMonth << " " << stime_deposit.wYear << endl << "ОТКРЫТИЕ ВКЛАДА" << endl << "новая операция";
+				}
+				file_history.close();
+
+				interface_operation.set_cursor_local(34, 15);
+				cout << "ВКЛАД ОТКРЫТ!";
+				print = true;
+			}
+			else if (confirmation == "Нет")
+			{
+				print = true;
+				break;
+			}
+		} while (print != true);
+		system("pause");
 		break;
 	}
 	case 6:
@@ -459,6 +624,7 @@ void Account::advanced_search(vector<string>advanced_search_operation)
 	cout << "Ваш выбор:";
 	string kind;
 	bool check_kind;
+	string name_operation, sum_cash, day_operation;
 	do
 	{
 		inerface_advanced_search.set_cursor_local(68, 19);
@@ -470,62 +636,74 @@ void Account::advanced_search(vector<string>advanced_search_operation)
 			inerface_advanced_search.set_cursor_local(57, 21);
 			cout << "Денежная сумма:";
 			inerface_advanced_search.set_cursor_local(57, 22);
-			cout << "Дата выполнения операции(ДД.ММ.ГГГГ):";			
+			cout << "Номер дня недели:";			
 			int number_operation;
 			inerface_advanced_search.set_cursor_local(73, 20);
 			cin >> number_operation;
-			string name_operation;
 			name_operation = logic_advanced_search.number_operation_to_name_operation(number_operation);
-			string sum_cash;
 			inerface_advanced_search.set_cursor_local(73, 21);
 			cin >> sum_cash;
-			string date_operation;
-			inerface_advanced_search.set_cursor_local(95, 22);
-			cin >> date_operation;
-			advanced_search_operation = logic_advanced_search.advanced_search(advanced_search_operation, name_operation, sum_cash, date_operation);
-			int count_string = advanced_search_operation.size() - 1;
-			int k = 0;
-			int j = 0;
-			for (int i = 0; i < 6; i++)
-			{
-				for (int n = 0; n < 4; n++)
-				{
-					inerface_advanced_search.set_cursor_local(10, 7 + j + k);
-					cout << "                            "; // Очищаю всю таблицу для обновления
-					j++;
-				}
-				k = k + 2;
-			}
-			k = 0;
-			j = 0;
-			do
-			{
-				if (advanced_search_operation[count_string] == "новая операция")
-				{
-					count_string--;
-				}
-				int i = 0;
-				while (advanced_search_operation[count_string] != "новая операция")
-				{
-					inerface_advanced_search.set_cursor_local(10, 7 + j + k);
-					cout << advanced_search_operation[count_string];
-					if (i == 3)
-					{
-						inerface_advanced_search.set_cursor_local(19, 7 + j + k);
-						cout << "RUB";
-					}
-					j++;
-					count_string--;
-					if (count_string < 0)
-					{
-						break;
-					}
-					i++;
-				}
-				k = k + 2;
-			} while (count_string >= 0);
+			inerface_advanced_search.set_cursor_local(75, 22);
+			cin >> day_operation;
 			check_kind = true;
-			system("pause");
+			advanced_search_operation = logic_advanced_search.advanced_search(advanced_search_operation, name_operation, sum_cash, day_operation);
 		}
 	} while (check_kind == false);
+	int count_string = advanced_search_operation.size() - 1;
+	int k = 0;
+	int j = 0;
+	for (int i = 0; i < 6; i++)
+	{
+		for (int n = 0; n < 4; n++)
+		{
+			inerface_advanced_search.set_cursor_local(10, 7 + j + k);
+			cout << "                            "; // Очищаю всю таблицу для обновления
+			j++;
+		}
+		k = k + 2;
+	}
+	k = 0;
+	j = 0;
+	do
+	{
+		if (advanced_search_operation[count_string] == "новая операция")
+		{
+			count_string--;
+		}
+		int i = 0;
+		while (advanced_search_operation[count_string] != "новая операция")
+		{
+			if (i == 2)
+			{
+				inerface_advanced_search.set_cursor_local(10, 7 + j + k);
+				cout << logic_advanced_search.number_day_to_name_day(advanced_search_operation[count_string]);
+			}
+			else if (i == 3)
+			{
+				inerface_advanced_search.set_cursor_local(10, 7 + j + k);
+				cout << advanced_search_operation[count_string];
+				inerface_advanced_search.set_cursor_local(19, 7 + j + k);
+				cout << "RUB";
+			}
+			else if (i >= 4)
+			{
+				advanced_search_operation[count_string].pop_back();
+				i--;
+				j--;
+			}
+			else
+			{
+				inerface_advanced_search.set_cursor_local(10, 7 + j + k);
+				cout << advanced_search_operation[count_string];
+			}
+			j++;
+			count_string--;
+			if (count_string < 0)
+			{
+				break;
+			}
+			i++;
+		}
+		k = k + 2;
+	} while (count_string >= 0);
 }

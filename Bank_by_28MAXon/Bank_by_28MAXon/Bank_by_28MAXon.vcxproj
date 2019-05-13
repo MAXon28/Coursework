@@ -179,6 +179,7 @@
     <Text Include="Bezuglyash.txt" />
     <Text Include="BezuglyashHistoryOperation.txt" />
     <Text Include="Check.txt" />
+    <Text Include="CheckHistoryOperation.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
