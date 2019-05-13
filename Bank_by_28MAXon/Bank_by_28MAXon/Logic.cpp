@@ -1,4 +1,4 @@
-#include "pch.h"
+п»ї#include "pch.h"
 #include "Logic.h"
 
 
@@ -128,9 +128,9 @@ vector<string> Logic::normal_search(vector <string>& search_history, string word
 	bool searching = false;
 	do
 	{
-		while (search_history[i] != "новая операция")
+		while (search_history[i] != "РЅРѕРІР°СЏ РѕРїРµСЂР°С†РёСЏ")
 		{
-			if (search_history[i + 1] == "новая операция")
+			if (search_history[i + 1] == "РЅРѕРІР°СЏ РѕРїРµСЂР°С†РёСЏ")
 			{
 				if (search_history[i] == word)
 				{
@@ -149,7 +149,7 @@ vector<string> Logic::normal_search(vector <string>& search_history, string word
 		{
 			int j = dot;
 			int count_delete = 0;
-			while (search_history[j] != "новая операция")
+			while (search_history[j] != "РЅРѕРІР°СЏ РѕРїРµСЂР°С†РёСЏ")
 			{
 				auto iterator = search_history.cbegin();
 				search_history.erase(iterator + j);
@@ -180,13 +180,13 @@ vector <string> Logic::advanced_search(vector <string>& advanced_search_history,
 	int count_string;
 	count_string = advanced_search_history.size();
 	int i = 0;
-	int dot = 0; // сюда буду подавать элемент, на котором закончились данные об одной операции
+	int dot = 0; // СЃСЋРґР° Р±СѓРґСѓ РїРѕРґР°РІР°С‚СЊ СЌР»РµРјРµРЅС‚, РЅР° РєРѕС‚РѕСЂРѕРј Р·Р°РєРѕРЅС‡РёР»РёСЃСЊ РґР°РЅРЅС‹Рµ РѕР± РѕРґРЅРѕР№ РѕРїРµСЂР°С†РёРё
 	bool searching = false;
 	do
 	{
-		while (advanced_search_history[i] != "новая операция")
+		while (advanced_search_history[i] != "РЅРѕРІР°СЏ РѕРїРµСЂР°С†РёСЏ")
 		{
-			if (advanced_search_history[i + 1] == "новая операция")
+			if (advanced_search_history[i + 1] == "РЅРѕРІР°СЏ РѕРїРµСЂР°С†РёСЏ")
 			{
 				if (advanced_search_history[i] == name_operation)
 				{
@@ -217,7 +217,7 @@ vector <string> Logic::advanced_search(vector <string>& advanced_search_history,
 		{
 			int j = dot;
 			int count_delete = 0;
-			while (advanced_search_history[j] != "новая операция")
+			while (advanced_search_history[j] != "РЅРѕРІР°СЏ РѕРїРµСЂР°С†РёСЏ")
 			{
 				auto iterator = advanced_search_history.cbegin();
 				advanced_search_history.erase(iterator + j);
@@ -256,37 +256,37 @@ string Logic::number_operation_to_name_operation(int number_operation)
 	}
 	case 1:
 	{
-		return "ПОПОЛНЕНИЕ БАНКОВСКОЙ КАРТЫ";
+		return "РџРћРџРћР›РќР•РќРР• Р‘РђРќРљРћР’РЎРљРћР™ РљРђР РўР«";
 		break;
 	}
 	case 2:
 	{
-		return "ПЕРЕВОД КЛИЕНТУ НАШЕГО БАНКА";
+		return "РџР•Р Р•Р’РћР” РљР›РР•РќРўРЈ РќРђРЁР•Р“Рћ Р‘РђРќРљРђ";
 		break;
 	}
 	case 3:
 	{
-		return "ПЕРЕВОД КЛИЕНТУ ДРУГОГО БАНКА";
+		return "РџР•Р Р•Р’РћР” РљР›РР•РќРўРЈ Р”Р РЈР“РћР“Рћ Р‘РђРќРљРђ";
 		break;
 	}
 	case 4:
 	{
-		return "ОПЛАТА СОТОВОЙ СВЯЗИ";
+		return "РћРџР›РђРўРђ РЎРћРўРћР’РћР™ РЎР’РЇР—Р";
 		break;
 	}
 	case 5:
 	{
-		return "ОТКРЫТИЕ ВКЛАДА";
+		return "РћРўРљР Р«РўРР• Р’РљР›РђР”Рђ";
 		break;
 	}
 	case 6:
 	{
-		return "ПОЛУЧЕНИЕ КРЕДИТА";
+		return "РџРћР›РЈР§Р•РќРР• РљР Р•Р”РРўРђ";
 		break;
 	}
 	case 7:
 	{
-		return "ПОГАШЕНИЕ КРЕДИТА";
+		return "РџРћР“РђРЁР•РќРР• РљР Р•Р”РРўРђ";
 		break;
 	}
 	}
@@ -301,37 +301,37 @@ string Logic::number_day_to_name_day(string number_day)
 	{
 	case 1:
 	{
-		return "Понедельник";
+		return "РџРѕРЅРµРґРµР»СЊРЅРёРє";
 		break;
 	}
 	case 2:
 	{
-		return "Вторник";
+		return "Р’С‚РѕСЂРЅРёРє";
 		break;
 	}
 	case 3:
 	{
-		return "Среда";
+		return "РЎСЂРµРґР°";
 		break;
 	}
 	case 4:
 	{
-		return "Четверг";
+		return "Р§РµС‚РІРµСЂРі";
 		break;
 	}
 	case 5:
 	{
-		return "Пятница";
+		return "РџСЏС‚РЅРёС†Р°";
 		break;
 	}
 	case 6:
 	{
-		return "Суббота";
+		return "РЎСѓР±Р±РѕС‚Р°";
 		break;
 	}
 	case 7:
 	{
-		return "Воскресенье";
+		return "Р’РѕСЃРєСЂРµСЃРµРЅСЊРµ";
 		break;
 	}
 	}
