@@ -14,24 +14,10 @@ int main()
 	system("title Онлайн-МаксиБанк");
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
-
 	Console work_with_console; // При помощи этого объекта класса будем работать с консолью
-
 	// Программа автоматически выбирает фон, который пользователь выбирал в прошлый заход
-	ifstream file_read("Accounts.txt");
-	int choise_topic;
-	file_read >> choise_topic;
-	work_with_console.interface_backgroud_topic(choise_topic);
-
-	/** Выбор фоновой темы
-	cin >> choise_topic;
-	work_with_console.interface_backgroud_topic(choise_topic);*/
-
-	// Сохранение выбранного фона
-	ofstream file_write("Accounts.txt", ios_base::out);
-	file_write << choise_topic;
-	file_write.close();
-
+	int choise_topic = 1;
+	work_with_console.interface_backgroud_topic(1);
 	work_with_console.interface_start_page(); // Работает с консолью для стартового окна банка
 	Account men;
 	Registration registration;
@@ -55,12 +41,16 @@ int main()
 					system("pause");
 				}
 			} while (start != true);
+			choise_topic = men.get_number_Theme();
+			work_with_console.interface_backgroud_topic(choise_topic);
 			int choice_page = 1;
-			while (choice_page != 4)
+			while (choice_page != 0)
 			{
 				work_with_console.interface_menu(choice_page);
 				work_with_console.interface_backgroud_topic_partially(choise_topic);
 				choice_page = men.account_in_bank(choice_page);
+				choise_topic = men.get_number_Theme();
+				work_with_console.interface_backgroud_topic(choise_topic);
 			}
 			break;
 		}
@@ -80,6 +70,8 @@ int main()
 		}
 	}
 	system("cls");
-	cout << "Выход из приложения!" << endl;
+	work_with_console.set_cursor_local(42, 19);
+	cout << "Выход из приложения!";
+	work_with_console.set_cursor_local(28, 20);
 	system("pause");
 }

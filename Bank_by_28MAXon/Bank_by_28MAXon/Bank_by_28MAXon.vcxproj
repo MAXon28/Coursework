@@ -175,11 +175,10 @@
     <ResourceCompile Include="Bank_by_28MAXon.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Accounts.txt" />
     <Text Include="Bezuglyash.txt" />
     <Text Include="BezuglyashHistoryOperation.txt" />
     <Text Include="Check.txt" />
-    <Text Include="CheckHistoryOperation.txt" />
+    <Text Include="CheckTheme.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

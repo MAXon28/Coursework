@@ -4,15 +4,6 @@
 #include "Console.h"
 using namespace std;
 
-Registration::Registration()
-{
-}
-
-
-Registration::~Registration()
-{
-}
-
 istream& operator>>(istream& in, Registration& registr)
 {
 	Console interface_page;
@@ -163,6 +154,9 @@ bool Registration::confirmation()
 		ofstream file_nick(name_file);
 		file_nick << login << endl << pin << endl << name << endl << surname << endl << age << endl << number_of_phone << endl << email_adress << endl << country << endl << city << endl << number_of_card << endl << secret_answer << endl << "128";
 		file_nick.close();
+		ofstream file_Theme(login + Theme + expansion);
+		file_Theme << 1;
+		file_Theme.close();
 		system("cls");
 		confirm.set_cursor_local(1, 0);
 		cout << "Регистрация проведена успешно! Спасибо, что выбрали нас!" << endl;

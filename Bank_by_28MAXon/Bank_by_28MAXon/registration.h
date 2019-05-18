@@ -9,15 +9,15 @@ private:
 	string name;
 	string surname;
 	int age;
-	unsigned long int number_of_phone;
+	unsigned long long int number_of_phone;
 	string email_adress;
 	string country;
 	string city;
-	unsigned long int number_of_card;
+	unsigned long long int number_of_card;
+	string secret_answer;
 public:
-	Registration();
-	~Registration();
-
+	Registration() {}
+	~Registration() {}
 	friend istream& operator>>(istream& in, Registration& registr);
 	bool confirmation();
 };

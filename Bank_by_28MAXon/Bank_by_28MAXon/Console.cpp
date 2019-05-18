@@ -126,7 +126,7 @@ void Console::interface_registration()
 	set_cursor_local(3, 30);
 	cout << "Придумайте пароль";
 	set_cursor_local(3, 33);
-	cout << "Имя Вашей мамы";
+	cout << "Ваш любимый фильм";
 	color(15, 0);
 }
 
@@ -192,7 +192,6 @@ void Console::interface_confirm()
 void Console::interface_menu(int choice_page)
 {
 	system("cls");
-	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	for (int i = 0; i < 3; i++)
 	{
 		set_cursor_local(0, 0 + i);
@@ -257,9 +256,8 @@ void Console::interface_menu(int choice_page)
 
 void Console::interface_main_page()
 {
-	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	set_cursor_local(34, 5);
-	cout << "Главная страница онлайн-банка";
+	set_cursor_local(37, 5);
+	cout << "ГЛАВНАЯ СТРАНИЦА ОНЛАЙН-БАНКА";
 	set_cursor_local(0, 7);
 	cout << "_________________________________________________________________________________________________________";
 	set_cursor_local(37, 10);
@@ -270,22 +268,22 @@ void Console::interface_main_page()
 	int y = 0;
 	for (int i = 0; i < 3; i++)
 	{
-		set_cursor_local(38, 16 + y);
+		set_cursor_local(41, 16 + y);
 		cout << "___________________";
 		y = y + 3;
 	}
 	for (int i = 0; i < 6; i++)
 	{
-		set_cursor_local(37, 17 + i);
+		set_cursor_local(40, 17 + i);
 		cout << "|";
-		set_cursor_local(57, 17 + i);
+		set_cursor_local(60, 17 + i);
 		cout << "|";
 	}
-	set_cursor_local(43, 15);
+	set_cursor_local(46, 15);
 	cout << "НАСТРОЙКИ";
-	set_cursor_local(41, 18);
+	set_cursor_local(44, 18);
 	cout << "1 - мои данные";
-	set_cursor_local(40, 21);
+	set_cursor_local(43, 21);
 	cout << "2 - изменить фон";
 	set_cursor_local(40, 25);
 	cout << "|Выберите действие|";
@@ -381,11 +379,42 @@ void Console::interface_history_page()
 	cout << "Номер кнопки в меню:";
 }
 
+void Console::interface_exit_page()
+{
+	set_cursor_local(50, 4);
+	cout << "ВЫХОД";
+	set_cursor_local(37, 5);
+	cout << "Вы действительно хотите выйти?";
+	for (int i = 0; i < 3; i++)
+	{
+		set_cursor_local(37, 7 + i);
+		cout << "|";
+		set_cursor_local(52, 7 + i);
+		cout << "|";
+		set_cursor_local(67, 7 + i);
+		cout << "|";
+	}
+	int y = 0;
+	for (int i = 0; i < 2; i++)
+	{
+		set_cursor_local(38, 6 + y);
+		cout << "______________";
+		set_cursor_local(53, 6 + y);
+		cout << "______________";
+		y = y + 3;
+	}
+	set_cursor_local(42, 8);
+	cout << "1 - да";
+	set_cursor_local(57, 8);
+	cout << "2 - нет";
+	set_cursor_local(37, 11);
+	cout << "Ваш выбор:";
+}
+
 void Console::interface_myData()
 {
 	set_cursor_local(34, 0);
-	SetConsoleCursorPosition(hConsole, coordinates);
-	cout << "МОИ ДАННЫЕ" << endl;
+	cout << "МОИ ДАННЫЕ";
 	int y = 0;
 	for (int i = 0; i < 11; i++)
 	{
@@ -399,7 +428,6 @@ void Console::interface_myData()
 		cout << "___________________________________________";
 		y = y + 3;
 	}
-
 	for (int i = 0; i < 33; i++)
 	{
 		set_cursor_local(1, 2 + i);
@@ -435,6 +463,40 @@ void Console::interface_myData()
 	cout << "Внести изменения? (Если да, то нажмите цифру, которая соответствует выбранному Вами полю, в противном случае нажмите 0)";
 }
 
+void Console::interface_myTheme()
+{
+	set_cursor_local(34, 0);
+	cout << "ИЗМЕНЕНИЕ ФОНА";
+	int y = 0;
+	for (int i = 0; i < 3; i++)
+	{
+		set_cursor_local(2, 1 + y);
+		cout << "_________________";
+		set_cursor_local(20, 1 + y);
+		cout << "_____________________________________";
+		y = y + 3;
+	}
+	for (int i = 0; i < 6; i++)
+	{
+		set_cursor_local(1, 2 + i);
+		cout << "|";
+		set_cursor_local(19, 2 + i);
+		cout << "|";
+		set_cursor_local(57, 2 + i);
+		cout << "|";
+	}
+	set_cursor_local(3, 3);
+	cout << "1 - фон №1";
+	set_cursor_local(3, 6);
+	cout << "2 - фон №2";
+	set_cursor_local(21, 3);
+	color(2, 15);
+	cout << "Зеленый фон, белый текст";
+	set_cursor_local(21, 6);
+	color(11, 0);
+	cout << "Голубой фон, черный текст";
+}
+
 void Console::interface_operation(int operation)
 {
 	switch (operation)
@@ -445,7 +507,6 @@ void Console::interface_operation(int operation)
 		cout << "ПОПОЛНЕНИЕ БАНКОВСКОЙ КАРТЫ";
 		set_cursor_local(1, 1);
 		cout << "Для уверенности, что Вас не взломали, ответьте на вопрос (Ваш любимый фильм?):";
-
 		for (int i = 0; i < 9; i++)
 		{
 			set_cursor_local(1, 3 + i);
@@ -474,14 +535,110 @@ void Console::interface_operation(int operation)
 	}
 	case 2:
 	{
+		set_cursor_local(34, 0);
+		cout << "ПЕРЕВОД КЛИЕНТУ МаксиБанк";
+		set_cursor_local(1, 1);
+		cout << "Для уверенности, что Вас не взломали, ответьте на вопрос (Ваш любимый фильм?):";
+		for (int i = 0; i < 15; i++)
+		{
+			set_cursor_local(1, 3 + i);
+			cout << "|";
+			set_cursor_local(37, 3 + i);
+			cout << "|";
+			set_cursor_local(57, 3 + i);
+			cout << "|";
+		}
+		int y = 0;
+		for (int i = 0; i < 6; i++)
+		{
+			set_cursor_local(2, 2 + y);
+			cout << "___________________________________";
+			set_cursor_local(38, 2 + y);
+			cout << "___________________";
+			y = y + 3;
+		}
+		set_cursor_local(4, 4);
+		cout << "Баланс на карте в данный момент";
+		set_cursor_local(4, 7);
+		cout << "Номер карты";
+		set_cursor_local(4, 10);
+		cout << "Имя получателя";
+		set_cursor_local(4, 13);
+		cout << "Нужная сумма перевода";
+		set_cursor_local(4, 16);
+		cout << "Баланс на карте после перевода";
 		break;
 	}
 	case 3:
 	{
+		set_cursor_local(34, 0);
+		cout << "ПЕРЕВОД КЛИЕНТУ ДРУГОГО БАНКА";
+		set_cursor_local(1, 1);
+		cout << "Для уверенности, что Вас не взломали, ответьте на вопрос (Ваш любимый фильм?):";
+		for (int i = 0; i < 18; i++)
+		{
+			set_cursor_local(1, 3 + i);
+			cout << "|";
+			set_cursor_local(37, 3 + i);
+			cout << "|";
+			set_cursor_local(57, 3 + i);
+			cout << "|";
+		}
+		int y = 0;
+		for (int i = 0; i < 7; i++)
+		{
+			set_cursor_local(2, 2 + y);
+			cout << "___________________________________";
+			set_cursor_local(38, 2 + y);
+			cout << "___________________";
+			y = y + 3;
+		}
+		set_cursor_local(4, 4);
+		cout << "Баланс на карте в данный момент";
+		set_cursor_local(4, 7);
+		cout << "Название банка";
+		set_cursor_local(4, 10);
+		cout << "Номер карты";
+		set_cursor_local(4, 13);
+		cout << "Имя получателя";
+		set_cursor_local(4, 16);
+		cout << "Нужная сумма перевода";
+		set_cursor_local(4, 19);
+		cout << "Баланс на карте после перевода";
 		break;
 	}
 	case 4:
 	{
+		set_cursor_local(34, 0);
+		cout << "ОПЛАТА СОТОВОЙ СВЯЗИ";
+		set_cursor_local(1, 1);
+		cout << "Для уверенности, что Вас не взломали, ответьте на вопрос (Ваш любимый фильм?):";
+		for (int i = 0; i < 12; i++)
+		{
+			set_cursor_local(1, 3 + i);
+			cout << "|";
+			set_cursor_local(37, 3 + i);
+			cout << "|";
+			set_cursor_local(57, 3 + i);
+			cout << "|";
+		}
+		int y = 0;
+		for (int i = 0; i < 5; i++)
+		{
+			set_cursor_local(2, 2 + y);
+			cout << "___________________________________";
+			set_cursor_local(38, 2 + y);
+			cout << "___________________";
+			y = y + 3;
+		}
+		set_cursor_local(4, 4);
+		cout << "Баланс на карте в данный момент";
+		set_cursor_local(4, 7);
+		cout << "Номер телефона";
+		set_cursor_local(4, 10);
+		cout << "Введите сумму";
+		set_cursor_local(4, 13);
+		cout << "Баланс на карте после оплаты";
 		break;
 	}
 	case 5:
@@ -590,48 +747,215 @@ void Console::interface_operation(int operation)
 	}
 	case 6:
 	{
+		set_cursor_local(37, 0);
+		cout << "ПОЛУЧЕНИЕ КРЕДИТА";
+		set_cursor_local(1, 1);
+		cout << "Для уверенности, что Вас не взломали, ответьте на вопрос (Ваш любимый фильм?):";
+		for (int i = 0; i < 9; i++)
+		{
+			set_cursor_local(1, 3 + i);
+			cout << "|";
+			set_cursor_local(45, 3 + i);
+			cout << "|";
+			set_cursor_local(63, 3 + i);
+			cout << "|";
+		}
+		int y = 0;
+		for (int i = 0; i < 4; i++)
+		{
+			set_cursor_local(2, 2 + y);
+			cout << "___________________________________________";
+			set_cursor_local(46, 2 + y);
+			cout << "_________________";
+			y = y + 3;
+		}
+		set_cursor_local(4, 4);
+		cout << "Вид кредита";
+		set_cursor_local(47, 4);
+		cout << "Потребительский";
+		set_cursor_local(4, 7);
+		cout << "Процентная ставка (годовая)";
+		set_cursor_local(47, 7);
+		cout << "15%";
+		set_cursor_local(4, 10);
+		cout << "Возможная сумма кредита";
+		set_cursor_local(47, 10);
+		cout << "До 5 миллионов";
+		for (int i = 0; i < 9; i++)
+		{
+			set_cursor_local(1, 15 + i);
+			cout << "|";
+			set_cursor_local(45, 15 + i);
+			cout << "|";
+			set_cursor_local(63, 15 + i);
+			cout << "|";
+		}
+		y = 0;
+		for (int i = 0; i < 4; i++)
+		{
+			set_cursor_local(2, 14 + y);
+			cout << "___________________________________________";
+			set_cursor_local(46, 14 + y);
+			cout << "_________________";
+			y = y + 3;
+		}
+		set_cursor_local(4, 16);
+		cout << "Вид кредита";
+		set_cursor_local(47, 16);
+		cout << "Ипотека";
+		set_cursor_local(4, 19);
+		cout << "Процентная ставка (годовая)";
+		set_cursor_local(47, 19);
+		cout << "10%";
+		set_cursor_local(4, 22);
+		cout << "Возможная сумма кредита";
+		set_cursor_local(47, 22);
+		cout << "До 30 миллионов";
+		for (int i = 0; i < 9; i++)
+		{
+			set_cursor_local(1, 27 + i);
+			cout << "|";
+			set_cursor_local(45, 27 + i);
+			cout << "|";
+			set_cursor_local(63, 27 + i);
+			cout << "|";
+		}
+		y = 0;
+		for (int i = 0; i < 4; i++)
+		{
+			set_cursor_local(2, 26 + y);
+			cout << "___________________________________________";
+			set_cursor_local(46, 26 + y);
+			cout << "_________________";
+			y = y + 3;
+		}
+		set_cursor_local(4, 28);
+		cout << "Вид кредита";
+		set_cursor_local(47, 28);
+		cout << "Автокредит";
+		set_cursor_local(4, 31);
+		cout << "Процентная ставка (годовая)";
+		set_cursor_local(47, 31);
+		cout << "14%";
+		set_cursor_local(4, 34);
+		cout << "Возможная сумма кредита";
+		set_cursor_local(47, 34);
+		cout << "До 5 миллионов";
 		break;
 	}
 	case 7:
 	{
+		set_cursor_local(34, 0);
+		cout << "ПОГАШЕНИЕ КРЕДИТА";
+		for (int i = 0; i < 15; i++)
+		{
+			set_cursor_local(1, 2 + i);
+			cout << "|";
+			set_cursor_local(54, 2 + i);
+			cout << "|";
+			set_cursor_local(72, 2 + i);
+			cout << "|";
+		}
+		int y = 0;
+		for (int i = 0; i < 6; i++)
+		{
+			set_cursor_local(2, 1 + y);
+			cout << "____________________________________________________";
+			set_cursor_local(55, 1 + y);
+			cout << "_________________";
+			y = y + 3;
+		}
+		set_cursor_local(3, 3);
+		cout << "Ежемесячный платеж";
+		set_cursor_local(3, 6);
+		cout << "Общая сумма погашения (нынешний остаток)";
+		set_cursor_local(3, 9);
+		cout << "Сумма погашения (автоматически ежемесячный платеж)";
+		set_cursor_local(3, 12);
+		cout << "Долг после завершения операции";
+		set_cursor_local(3, 15);
+		cout << "Баланс на карте после завершения операции";
 		break;
 	}
 	}
 }
 
-void Console::interface_local_operation()
+void Console::interface_local_operation(int choice)
 {
 	system("cls");
-	set_cursor_local(34, 0);
-	cout << "ОТКРЫТИЕ ВКЛАДА";
-	for (int i = 0; i < 15; i++)
+	switch (choice)
 	{
-		set_cursor_local(1, 2 + i);
-		cout << "|";
-		set_cursor_local(45, 2 + i);
-		cout << "|";
-		set_cursor_local(61, 2 + i);
-		cout << "|";
-	}
-	int y = 0;
-	for (int i = 0; i < 6; i++)
+	case 5:
 	{
-		set_cursor_local(2, 1 + y);
-		cout << "___________________________________________";
-		set_cursor_local(46, 1 + y);
-		cout << "_______________";
-		y = y + 3;
+		set_cursor_local(34, 0);
+		cout << "ОТКРЫТИЕ ВКЛАДА";
+		for (int i = 0; i < 15; i++)
+		{
+			set_cursor_local(1, 2 + i);
+			cout << "|";
+			set_cursor_local(45, 2 + i);
+			cout << "|";
+			set_cursor_local(61, 2 + i);
+			cout << "|";
+		}
+		int y = 0;
+		for (int i = 0; i < 6; i++)
+		{
+			set_cursor_local(2, 1 + y);
+			cout << "___________________________________________";
+			set_cursor_local(46, 1 + y);
+			cout << "_______________";
+			y = y + 3;
+		}
+		set_cursor_local(4, 3);
+		cout << "Баланс на карте в данный момент";
+		set_cursor_local(4, 6);
+		cout << "Сумма вклада";
+		set_cursor_local(4, 9);
+		cout << "Баланс на карте после открытия вклада";
+		set_cursor_local(4, 12);
+		cout << "Сумма доходов";
+		set_cursor_local(4, 15);
+		cout << "Баланс по окончании срока депозита";
+		break;
 	}
-	set_cursor_local(4, 3);
-	cout << "Баланс на карте в данный момент";
-	set_cursor_local(4, 6);
-	cout << "Сумма вклада";
-	set_cursor_local(4, 9);
-	cout << "Баланс на карте после открытия вклада";
-	set_cursor_local(4, 12);
-	cout << "Сумма доходов";
-	set_cursor_local(4, 15);
-	cout << "Баланс по окончании срока депозита";
+	case 6:
+	{
+		set_cursor_local(34, 0);
+		cout << "ПОЛУЧЕНИЕ КРЕДИТА";
+		for (int i = 0; i < 18; i++)
+		{
+			set_cursor_local(1, 2 + i);
+			cout << "|";
+			set_cursor_local(36, 2 + i);
+			cout << "|";
+			set_cursor_local(52, 2 + i);
+			cout << "|";
+		}
+		int y = 0;
+		for (int i = 0; i < 7; i++)
+		{
+			set_cursor_local(2, 1 + y);
+			cout << "__________________________________";
+			set_cursor_local(37, 1 + y);
+			cout << "_______________";
+			y = y + 3;
+		}
+		set_cursor_local(3, 3);
+		cout << "Баланс на карте в данный момент";
+		set_cursor_local(3, 6);
+		cout << "Срок кредита (в месяцах)";
+		set_cursor_local(3, 9);
+		cout << "Сумма кредита";
+		set_cursor_local(3, 12);
+		cout << "Ежемесячные выплаты";
+		set_cursor_local(3, 15);
+		cout << "Общая сумма погашения кредита";
+		set_cursor_local(3, 18);
+		cout << "Баланс после взятия кредита";
+		break;
+	}
+	}
 }
 
 void Console::interface_backgroud_topic_partially(int choise)
